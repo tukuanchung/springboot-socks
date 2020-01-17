@@ -31,35 +31,35 @@ public class BatchConfiguration {
     public StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public FlatFileItemReader<Person> reader(){
+    public FlatFileItemReader<Person> reader() {
         return new FlatFileItemReaderBuilder<Person>()
                 .name("PersonItemReader")
                 .resource(new ClassPathResource("sample-data.csv"))
                 .delimited()
-                .names(new String[] {"firstName", "lastName"})
-                .fieldSetMapper(new BeanWrapperFieldSetMapper<Person>(){{
+                .names(new String[]{"firstName", "lastName"})
+                .fieldSetMapper(new BeanWrapperFieldSetMapper<Person>() {{
                     setTargetType(Person.class);
-        }}).build();
+                }}).build();
 
     }
 
     @Bean
-    public PersonItemProcessor processor(){
+    public PersonItemProcessor processor() {
         return new PersonItemProcessor();
     }
 
 
     @Bean
-    public JdbcBatchItemWriter<Person> writer(DataSource dataSource){
+    public JdbcBatchItemWriter<Person> writer(DataSource dataSource) {
         return new JdbcBatchItemWriterBuilder<Person>()
                 .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
                 .sql("INSERT INTO people(first_name, last_name) VALUES (:firstName, :lastName)")
-                        .dataSource(dataSource)
-                        .build();
+                .dataSource(dataSource)
+                .build();
     }
 
     @Bean
-    public Job importUserJob(JobCompletionNotificationListener listener, Step step1){
+    public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
         return jobBuilderFactory.get("importUserJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
@@ -69,9 +69,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step step1(JdbcBatchItemWriter<Person> writer){
+    public Step step1(JdbcBatchItemWriter<Person> writer) {
         return stepBuilderFactory.get("step1")
-                .<Person, Person> chunk(10)
+                .<Person, Person>chunk(10)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer)
