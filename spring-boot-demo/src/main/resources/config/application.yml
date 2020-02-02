@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: pro
+
+book:
+  name: 互聯網世界觀
+  author: 杜肚肚
+  isbn: ${random.uuid}
+  description: ${book.name} ,這本書還不錯
+
+
+
+# application-{profile}.yml
