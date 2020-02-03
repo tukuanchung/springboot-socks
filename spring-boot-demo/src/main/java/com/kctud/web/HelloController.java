@@ -16,11 +16,11 @@ import java.util.Map;
  */
 @RestController
 //@Controller
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v2")
 public class HelloController {
 
-    @Autowired
-    private Book book;
+//    @Autowired
+//    private Book book;
 
 //    @RequestMapping(value="/say", method=RequestMethod.GET)
 //    @RequestMapping("/say")
@@ -68,7 +68,7 @@ public class HelloController {
 //        book.put("author",author);
 //        book.put("description", description);
 //        book.put("username",username);
-        return book;
+        return null;
     }
 
     @PostMapping("/books")
