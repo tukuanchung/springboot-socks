@@ -84,4 +84,13 @@ public class BookApp {
     public void deleteOne(@PathVariable long id){
         bookService.deleteOne(id);
     }
+
+
+    @PostMapping("/books/by")
+    public List<Book> findByAuthor(@RequestParam String des){
+//        return bookService.findByAuthorAndStatus(author, status);
+        return bookService.findByDescriptionEndsWith(des);
+    }
+
+
 }

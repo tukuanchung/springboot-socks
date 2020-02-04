@@ -52,4 +52,16 @@ public class BookService {
     public void deleteOne(long id){
         bookRepository.deleteById(id);
     }
+
+    public List findByAuthor(String author){
+        return bookRepository.findByAuthor(author);
+    }
+
+    public List findByAuthorAndStatus(String author, int status){
+        return bookRepository.findByAuthorAndStatus(author, status);
+    }
+
+    public List<Book> findByDescriptionEndsWith(String des){
+        return bookRepository.findByDescriptionEndsWith(des);
+    }
 }
