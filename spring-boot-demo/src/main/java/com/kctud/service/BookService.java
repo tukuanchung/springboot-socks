@@ -5,6 +5,7 @@ import com.kctud.domain.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,5 +64,19 @@ public class BookService {
 
     public List<Book> findByDescriptionEndsWith(String des){
         return bookRepository.findByDescriptionEndsWith(des);
+    }
+
+    public List<Book> findByJPQL(int len){
+        return bookRepository.findByJPQL(len);
+    }
+
+    @Transactional
+    public int updateByJPQL(int status, long id){
+        return bookRepository.updateByJPQL(status, id);
+    }
+
+    @Transactional
+    public int deleteByJPQL(long id){
+        return bookRepository.deleteByJPQL(id);
     }
 }
