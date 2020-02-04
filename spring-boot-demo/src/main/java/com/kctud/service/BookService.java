@@ -4,8 +4,9 @@ import com.kctud.domain.Book;
 import com.kctud.domain.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -78,5 +79,19 @@ public class BookService {
     @Transactional
     public int deleteByJPQL(long id){
         return bookRepository.deleteByJPQL(id);
+    }
+
+    /**
+     * 測試Transaction
+     * @param id
+     * @param status
+     * @param uuid
+     * @return
+     */
+    @Transactional
+    public int deleteAndUpdate(long id, int status, long uuid){
+        int dcount = bookRepository.deleteByJPQL(id);
+        int ucount = bookRepository.updateByJPQL(status, uuid);
+        return dcount+ucount;
     }
 }
