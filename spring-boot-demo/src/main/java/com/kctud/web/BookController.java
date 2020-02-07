@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.font.EAttribute;
 
 import java.util.List;
 
@@ -51,11 +53,7 @@ public class BookController {
         return "input";
     }
 
-    @PostMapping("/books")
-    public String post(Book book){
-        bookService.save(book);
-        return "redirect:/books";
-    }
+
 
     /**
      * 跳轉到更新頁面
@@ -69,4 +67,19 @@ public class BookController {
         model.addAttribute("book", book);
         return "input";
     }
+
+
+    @PostMapping("/books")
+    public String post(Book book, final RedirectAttributes attributes){
+
+        Book book1 = bookService.save(book);
+        if(book != null){
+            attributes.addFlashAttribute("message","<"+book1.getName()+">訊息提交成功");
+        }
+        return "redirect:/books";
+    }
+    /**
+     * POST ----> redirect ---> GET
+     *
+     */
 }
