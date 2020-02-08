@@ -3,6 +3,8 @@ package com.kctud.web;
 import com.kctud.domain.Book;
 import com.kctud.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +25,10 @@ public class BookApp {
      */
 
     @GetMapping("/books")
-    public List<Book> getAll(){
-        return bookService.findAll();
+    public Page<Book> getAll(){
+//        return bookService.findAll();
+        return bookService.findAllByPage();
+
     }
 
     /**

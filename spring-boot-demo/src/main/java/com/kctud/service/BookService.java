@@ -3,6 +3,10 @@ package com.kctud.service;
 import com.kctud.domain.Book;
 import com.kctud.domain.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +30,16 @@ public class BookService {
      */
     public List<Book> findAll(){
         return bookRepository.findAll();
+    }
+
+    /**
+     * 分頁查詢
+     * @return
+     */
+    public Page<Book> findAllByPage(){
+        Sort sort = Sort.by(Sort.Direction.DESC,"id");
+        Pageable pageable = PageRequest.of(1, 3, sort);
+        return bookRepository.findAll(pageable);
     }
 
     /**
