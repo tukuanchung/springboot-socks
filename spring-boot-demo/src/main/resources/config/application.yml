@@ -1,7 +1,11 @@
 spring:
   profiles:
     active: dev
-
+  thymeleaf:
+    mode: HTML
+  devtools:
+    restart:
+      trigger-file: .trigger
 book:
   name: 互聯網世界觀
   author: 杜肚肚

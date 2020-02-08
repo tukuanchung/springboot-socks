@@ -61,9 +61,6 @@ public class BookController {
         model.addAttribute("book", new Book());
         return "input";
     }
-
-
-
     /**
      * 跳轉到更新頁面
      * @param id
@@ -80,7 +77,6 @@ public class BookController {
 
     @PostMapping("/books")
     public String post(Book book, final RedirectAttributes attributes){
-
         Book book1 = bookService.save(book);
         if(book != null){
             attributes.addFlashAttribute("message","<"+book1.getName()+">訊息提交成功");
@@ -91,4 +87,11 @@ public class BookController {
      * POST ----> redirect ---> GET
      *
      */
+
+    @GetMapping("/books/{id}/delete")
+    public String delete(@PathVariable long id,final RedirectAttributes attributes){
+        bookService.deleteOne(id);
+        attributes.addFlashAttribute("message","刪除成功");
+        return "redirect:/books";
+    }
 }

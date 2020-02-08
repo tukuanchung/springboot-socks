@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Booksß</title>
+    <title>Books</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,7 +55,8 @@
                     </td>
 
                     <td>
-                        <a href="#" th:href="@{/books/{id}/input(id=${book.id})}">更新</a>
+                        <a href="#" th:href="@{/books/{id}/input(id=${book.id})}">更新</a>&nbsp;
+                        <a href="#" th:href="@{/books/{id}/delete(id=${book.id})}">刪除</a>
                     </td>
                 </tr>
 
