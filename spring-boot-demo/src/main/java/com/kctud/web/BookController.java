@@ -4,6 +4,11 @@ import com.kctud.domain.Book;
 import com.kctud.service.BookService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +30,13 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/books")
-    public String list(Model model){
-        List<Book> books = bookService.findAll();
-        model.addAttribute("books", books);
+    public String list(@PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
+                       Model model){
+//        List<Book> books = bookService.findAll();
+//        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Page<Book> page1 = bookService.findAllByPage(pageable);
+
+        model.addAttribute("page", page1);
         return "books";
     }
 

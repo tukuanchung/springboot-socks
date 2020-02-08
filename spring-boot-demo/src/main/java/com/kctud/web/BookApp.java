@@ -4,7 +4,9 @@ import com.kctud.domain.Book;
 import com.kctud.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,9 +27,12 @@ public class BookApp {
      */
 
     @GetMapping("/books")
-    public Page<Book> getAll(){
+    public Page<Book> getAll(@RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "5") int size){
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+
 //        return bookService.findAll();
-        return bookService.findAllByPage();
+        return bookService.findAllByPage(PageRequest.of(page, size, sort));
 
     }
 
