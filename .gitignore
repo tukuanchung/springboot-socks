@@ -18,6 +18,8 @@ target/
 *.iws
 *.iml
 *.ipr
+*.gz
+*.log
 
 ### NetBeans ###
 /nbproject/private/
@@ -29,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/logs/debug.log.2020-02-07.0.gz
