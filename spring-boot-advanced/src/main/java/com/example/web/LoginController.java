@@ -2,6 +2,9 @@ package com.example.web;
 
 import com.example.dmain.User;
 import com.example.dmain.UserRepository;
+import com.example.form.UserForm;
+import com.example.form.UserFormConvert;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +21,7 @@ public class LoginController {
     private UserRepository userRepository;
 
     @GetMapping("/register")
-    public String register(){
+    public String registerPage(){
         return "register";
     }
     @GetMapping("/login")
@@ -27,16 +30,10 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String registerPost(@RequestParam String username,
-                               @RequestParam String password,
-                               @RequestParam String email,
-                               @RequestParam Integer phone){
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setPhone(phone);
-        userRepository.save(user);
-        return "redirect:/login";
+    public String register(UserForm userForm){
+       User user = new UserFormConvert().convert(userForm);
+       userRepository.save(user);
+       return "redirect:/login";
     }
+
 }
