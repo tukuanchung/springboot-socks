@@ -51,4 +51,9 @@ public class LoginController {
         return "redirect:/login";
     }
 
+    @GetMapping("/exception")
+    public String testException(){
+        throw new RuntimeException();
+    }
+
 }
