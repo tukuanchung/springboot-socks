@@ -7,6 +7,7 @@ import com.example.form.UserFormConvert;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,8 @@ public class LoginController {
     private UserRepository userRepository;
 
     @GetMapping("/register")
-    public String registerPage(){
+    public String registerPage(Model model){
+        model.addAttribute("userForm", new UserForm());
         return "register";
     }
     @GetMapping("/login")
@@ -35,26 +37,15 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid UserForm userForm, BindingResult result){
-        boolean boo =true;
-        System.out.println(userForm.getPhone());
+    public String register(@Valid UserForm userForm, BindingResult result, Model model){
+
         if(!userForm.confirmPassword()){
             result.rejectValue("confirmPassword","confirmError","密碼不一至");
-            boo = false;
         }
 
         if(result.hasErrors()){
-            List<FieldError> fieldErrors = result.getFieldErrors();
-            for(FieldError error : fieldErrors){
-                System.out.println(error.getField() + " : " + error.getDefaultMessage() + " :" + error.getCode());
-            }
-           boo = false;
+          return "register";
         }
-
-        if(!boo){
-            return "register";
-        }
-
         User user = userForm.convertToUser();
         userRepository.save(user);
         return "redirect:/login";

@@ -17,7 +17,6 @@ public class UserForm {
 
     @NotBlank
     private String username;
-    @NotBlank
     @Length(min = 6, message ="密碼至少需要6位")
     private String password;
     @Pattern(regexp = PHONE_REG, message = "請輸入正確手機號碼")
