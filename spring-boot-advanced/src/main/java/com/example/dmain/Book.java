@@ -19,9 +19,7 @@ public class Book {
     private String name;
     private Integer status;
 
-    public Book(){
-
-    }
+    public Book(){}
 
     public Long getId() {
         return id;

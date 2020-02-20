@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.dmain.Book;
 import com.example.dmain.BookRepository;
+import com.example.exception.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,10 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public Book getBookById(Long id){
-        Book book = bookRepository.getOne(id);
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book == null) {
+            throw new BookNotFoundException("书单信息不存在");
+        }
         return book;
     }
 }
