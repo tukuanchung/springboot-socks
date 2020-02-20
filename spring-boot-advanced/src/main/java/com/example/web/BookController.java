@@ -45,19 +45,19 @@ public class BookController {
      * @param e
      * @return
      */
-    @ExceptionHandler({Exception.class})
-    public ModelAndView handleException(HttpServletRequest request, Exception e) throws Exception{
-        logger.error("Request URL : {}", request.getRequestURL(), e.getMessage());
-
-        if(AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) !=null){
-            throw e;
-        }
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("url", request.getRequestURL());
-        mav.addObject("exception", e);
-        mav.setViewName("error/error");
-
-        return mav;
-
-    }
+//    @ExceptionHandler({Exception.class})
+//    public ModelAndView handleException(HttpServletRequest request, Exception e) throws Exception{
+//        logger.error("Request URL : {}", request.getRequestURL(), e.getMessage());
+//
+//        if(AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) !=null){
+//            throw e;
+//        }
+//        ModelAndView mav = new ModelAndView();
+//        mav.addObject("url", request.getRequestURL());
+//        mav.addObject("exception", e);
+//        mav.setViewName("error/error");
+//
+//        return mav;
+//
+//    }
 }
