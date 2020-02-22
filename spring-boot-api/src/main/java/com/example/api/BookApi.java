@@ -1,13 +1,19 @@
 package com.example.api;
 
 import com.example.domain.Book;
+import com.example.dto.BookDTO;
 import com.example.service.BookService;
+import com.example.util.CustomBeanUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,18 +44,22 @@ public class BookApi {
     }
 
     @PostMapping("/books")
-    public ResponseEntity<?> saveBook(Book book){
+    public ResponseEntity<?> saveBook(@RequestBody  Book book){
         Book book1 = bookService.saveBook(book);
         return new ResponseEntity<Object>(book1, HttpStatus.CREATED);
     }
 
     @PutMapping("/books/{id}")
-    public ResponseEntity<?> updateBook(@PathVariable Long id, Book book){
+    public ResponseEntity<?> updateBook(@PathVariable Long id,@RequestBody BookDTO bookDTO){
         Book currentBook = bookService.getBook(id);
-        BeanUtils.copyProperties(book, currentBook);
+//        BeanUtils.copyProperties(bookDTO, currentBook);
+        bookDTO.convert(currentBook);
         Book book1 = bookService.updateBook(currentBook);
         return new ResponseEntity<Object>(book1, HttpStatus.OK);
     }
+
+
+
 
     @DeleteMapping("/books/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable Long id){
