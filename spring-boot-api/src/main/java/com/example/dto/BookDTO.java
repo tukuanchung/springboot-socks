@@ -2,28 +2,28 @@ package com.example.dto;
 
 import com.example.domain.Book;
 import com.example.util.CustomBeanUtils;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.BeanUtils;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by kuanchungtu on 2020/2/22
  */
 public class BookDTO {
 
-    private Long id;
+    @NotBlank
     private String author;
+    @Length(max = 20)
     private String description;
+    @NotBlank
     private String name;
+    @NotNull
     private Integer status;
 
     public BookDTO(){
 
-    }
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getAuthor() {
@@ -62,10 +62,13 @@ public class BookDTO {
      * 轉換傳輸對象
      * @param book
      */
-    public void convert(Book book){
+    public void convertToBook(Book book){
         new BookConvert().convert(this, book);
     }
 
+    public Book convertToBook(){
+        return new BookConvert().convert(this);
+    }
 
     private class BookConvert implements Convert<BookDTO, Book>{
 
@@ -78,7 +81,9 @@ public class BookDTO {
 
         @Override
         public Book convert(BookDTO bookDTO) {
-            return null;
+            Book book = new Book();
+            BeanUtils.copyProperties(bookDTO, book);
+            return book;
         }
     }
 }
