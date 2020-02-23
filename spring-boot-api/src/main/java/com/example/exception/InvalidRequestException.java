@@ -7,10 +7,14 @@ import org.springframework.validation.Errors;
  */
 public class InvalidRequestException extends RuntimeException {
 
-    private Errors error;
+    private Errors errors;
 
-    public InvalidRequestException(String message, Errors error) {
+    public InvalidRequestException(String message, Errors errors) {
         super(message);
-        this.error = error;
+        this.errors = errors;
+    }
+
+    public Errors getErrors() {
+        return errors;
     }
 }

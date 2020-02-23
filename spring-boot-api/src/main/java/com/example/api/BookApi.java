@@ -55,7 +55,7 @@ public class BookApi {
     }
 
     @PostMapping("/books")
-    public ResponseEntity<?> saveBook(@Valid @RequestBody  BookDTO bookDTO,
+    public ResponseEntity<?> saveBook(@Valid @RequestBody BookDTO bookDTO,
                                       BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             throw new InvalidRequestException("Invalid parameter",bindingResult);

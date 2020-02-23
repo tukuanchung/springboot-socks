@@ -1,0 +1,23 @@
+package com.example.resource;
+
+/**
+ * Created by kuanchungtu on 2020/2/23
+ */
+public class InvalidErrorResource {
+
+    private String message;
+    private Object errors;
+
+    public InvalidErrorResource(String message, Object errors) {
+        this.message = message;
+        this.errors = errors;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public Object getErrors() {
+        return errors;
+    }
+}
