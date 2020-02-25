@@ -11,4 +11,5 @@ spring:
 
   profiles:
     active: dev
-
+#logging:
+#  config: classpath:logback-custom.xml
