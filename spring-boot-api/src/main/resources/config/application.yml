@@ -8,10 +8,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-logging:
-  level:
-    root: info
-    com.example: debug
-  file:
-    name: logs/debug_api.log
+
+  profiles:
+    active: dev
 

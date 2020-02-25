@@ -1,0 +1,8 @@
+logging:
+  level:
+    root: debug
+    com.example: debug
+#    config: classpath:logbak-test.xml
+#  file:
+#    name: devlog/my.log
+#    path: devlog
