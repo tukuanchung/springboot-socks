@@ -5,6 +5,8 @@ import com.example.exception.NotFoundException;
 import com.example.resource.ErrorResource;
 import com.example.resource.FieldResource;
 import com.example.resource.InvalidErrorResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -22,6 +24,9 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
+
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * 處理資源找不到異常
      * @param e
@@ -31,7 +36,10 @@ public class ApiExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> handleNoFound(RuntimeException e){
         ErrorResource errorResource = new ErrorResource((e.getMessage()));
-        return new ResponseEntity<Object>(errorResource, HttpStatus.NOT_FOUND);
+        ResponseEntity result = new ResponseEntity<Object>(errorResource, HttpStatus.NOT_FOUND);
+        logger.warn("return --- {}", result);
+
+        return result;
     }
 
     /**
@@ -54,7 +62,10 @@ public class ApiExceptionHandler {
             fieldResources.add(fieldResource);
         }
         InvalidErrorResource ier = new InvalidErrorResource(e.getMessage(), fieldResources);
-        return new ResponseEntity<Object>(ier, HttpStatus.BAD_REQUEST);
+        ResponseEntity result = new ResponseEntity<Object>(ier, HttpStatus.NOT_FOUND);
+        logger.warn("return --- {}", result);
+
+        return result;
     }
 
     /**
@@ -65,6 +76,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity<?> handleException(Exception e){
+        logger.warn("Error ------- {}", e);
         return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
